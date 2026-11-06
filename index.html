@@ -19,6 +19,7 @@
 <meta name="twitter:image" content="https://toskatelie.github.io/og.jpg">
 <link rel="canonical" href="https://toskatelie.github.io/">
 <meta name="theme-color" content="#efe9dc">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1552169067-2e1d47319db3?w=1400&q=72&fm=jpg&auto=format">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +43,10 @@
   --display:"Anton", "Impact", "Arial Narrow Bold", sans-serif;
   --corpo:"Archivo Narrow", "Arial Narrow", system-ui, sans-serif;
   --raio:22px;
+  /* estampa de onça: foto de Erik Mclean no Unsplash (licença Unsplash, uso livre) */
+  --estampa:url("https://images.unsplash.com/photo-1552169067-2e1d47319db3?w=1400&q=72&fm=jpg&auto=format");
 }
+@keyframes estampa-anda{from{background-position:0% 20%}to{background-position:100% 80%}}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
@@ -76,12 +80,12 @@ main,header,footer,section{position:relative;z-index:1}
 
 /* ---------- preloader ---------- */
 .loader{
-  position:fixed;inset:0;z-index:100;background:var(--tinta);color:var(--creme);
+  position:fixed;inset:0;z-index:100;background:var(--estampa) center/cover var(--onca);color:var(--creme);
   display:grid;place-items:center;overflow:hidden;
 }
-.loader__palavra{font-family:var(--display);font-size:clamp(72px,22vw,280px);line-height:.85;display:flex;overflow:hidden}
+.loader__palavra{font-family:var(--display);font-size:clamp(72px,22vw,280px);line-height:.95;display:flex;overflow:hidden;padding:.05em .08em .1em;-webkit-text-stroke:5px var(--tinta);paint-order:stroke fill;text-shadow:7px 7px 0 var(--tinta)}
 .loader__palavra span{display:inline-block;transform:translateY(105%)}
-.loader__conta{position:absolute;bottom:24px;right:28px;font-family:var(--display);font-size:22px;color:var(--onca)}
+.loader__conta{position:absolute;bottom:24px;right:28px;font-family:var(--display);font-size:22px;color:var(--onca);background:var(--tinta);border-radius:999px;padding:6px 16px}
 .sem-js .loader{display:none}
 
 /* ---------- topo ---------- */
@@ -142,11 +146,12 @@ main,header,footer,section{position:relative;z-index:1}
 .onca{position:absolute;bottom:4%;left:0;width:clamp(160px,22vw,320px);z-index:1;pointer-events:none}
 
 /* ---------- faixa corrida ---------- */
-.faixa{background:var(--tinta);color:var(--creme);overflow:hidden;border-block:3px solid var(--tinta);transform:rotate(-2deg);margin:40px -20px;position:relative;z-index:3}
-.faixa--b{background:var(--onca);color:var(--tinta);transform:rotate(1.5deg);margin-top:-30px}
+.faixa{background:var(--estampa) 0% 20%/max(100%,1200px) auto var(--onca);color:var(--creme);overflow:hidden;border-block:4px solid var(--tinta);transform:rotate(-2deg);margin:40px -20px;position:relative;z-index:3;animation:estampa-anda 18s ease-in-out infinite alternate}
+.faixa:not(.faixa--b) .faixa__item{-webkit-text-stroke:3px var(--tinta);paint-order:stroke fill;text-shadow:4px 4px 0 var(--tinta)}
+.faixa--b{background:var(--onca);color:var(--tinta);transform:rotate(1.5deg);margin-top:-30px;animation:none}
 .faixa__trilho{display:flex;width:max-content;will-change:transform}
 .faixa__item{font-family:var(--display);font-size:clamp(34px,6vw,72px);text-transform:uppercase;padding:10px 0;display:flex;align-items:center;white-space:nowrap}
-.faixa__item i{display:inline-block;width:.55em;height:.55em;margin:0 .45em;color:var(--onca)}
+.faixa__item i{display:inline-block;width:.55em;height:.55em;margin:0 .45em;color:var(--tinta);background:var(--creme);border-radius:50%;border:3px solid var(--tinta);box-sizing:content-box;padding:.06em}
 .faixa--b .faixa__item i{color:var(--vinho)}
 .faixa__item i svg{width:100%;height:100%;display:block}
 
@@ -167,7 +172,7 @@ main,header,footer,section{position:relative;z-index:1}
 /* ---------- artistas ---------- */
 .artistas__grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(18px,2.4vw,30px)}
 .cartao{
-  --gira:0deg;position:relative;background:var(--creme);border:2.5px solid var(--tinta);border-radius:var(--raio);
+  --gira:0deg;position:relative;background:var(--estampa) center/cover var(--onca);border:2.5px solid var(--tinta);border-radius:var(--raio);
   padding:16px;transform:rotate(var(--gira));box-shadow:8px 8px 0 var(--tinta);transition:box-shadow .3s;
   transform-style:preserve-3d;will-change:transform;
 }
@@ -176,7 +181,8 @@ main,header,footer,section{position:relative;z-index:1}
 .cartao__arte > *{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s}
 .cartao__arte > .ativa{opacity:1}
 .cartao__tag{position:absolute;top:12px;left:12px;z-index:2;background:var(--creme);border:2px solid var(--tinta);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
-.cartao__nome{font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,3.4vw,46px);line-height:.95;margin:16px 0 4px;color:var(--musgo)}
+.cartao__info{background:var(--creme);border:2.5px solid var(--tinta);border-radius:16px;padding:12px 14px 14px;margin-top:14px}
+.cartao__nome{font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,3.4vw,46px);line-height:.95;margin:0 0 4px;color:var(--musgo)}
 .cartao__handle{margin:0 0 14px;color:var(--vinho);font-weight:700}
 .cartao__botoes{display:flex;gap:8px;flex-wrap:wrap}
 .cartao__botoes .pilula{flex:1;justify-content:center;padding:12px 14px}
@@ -186,7 +192,7 @@ main,header,footer,section{position:relative;z-index:1}
 .galeria__topo{padding:clamp(70px,9vw,120px) clamp(16px,4vw,40px) 30px}
 .galeria__topo .rotulo{color:var(--onca);border-color:var(--creme)}
 .galeria__titulo{font-family:var(--display);text-transform:uppercase;font-size:clamp(60px,11vw,180px);line-height:.85;margin:0;color:var(--creme)}
-.galeria__titulo span{color:var(--onca)}
+.galeria__titulo span{background:var(--estampa) 0% 30%/220% auto var(--onca);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:2px var(--creme);animation:estampa-anda 10s ease-in-out infinite alternate;padding-right:.04em}
 .galeria__trilho{display:flex;gap:clamp(18px,3vw,40px);padding:20px clamp(16px,4vw,40px) clamp(80px,10vw,120px);width:max-content;align-items:center}
 .peca{flex:0 0 auto;width:clamp(240px,28vw,400px);will-change:transform}
 .peca:nth-child(even){margin-top:80px}
@@ -198,7 +204,7 @@ main,header,footer,section{position:relative;z-index:1}
 /* ---------- agendamento ---------- */
 .passos{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);counter-reset:p}
 .passo{border:2.5px solid var(--tinta);border-radius:var(--raio);padding:26px;background:var(--creme);position:relative;overflow:hidden}
-.passo::before{counter-increment:p;content:counter(p,decimal-leading-zero);font-family:var(--display);font-size:96px;line-height:.8;color:var(--onca);-webkit-text-stroke:2px var(--tinta);display:block;margin-bottom:18px}
+.passo::before{counter-increment:p;content:counter(p,decimal-leading-zero);font-family:var(--display);font-size:96px;line-height:.9;background:var(--estampa) 30% 40%/420px auto var(--onca);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:2px var(--tinta);display:inline-block;margin-bottom:14px;padding-right:.04em}
 .passo h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:32px;line-height:1;margin:0 0 8px;color:var(--musgo)}
 .passo p{margin:0;text-transform:uppercase;text-align:justify;line-height:1.2;font-weight:500}
 @media (max-width:860px){.passos{grid-template-columns:1fr}}
@@ -216,7 +222,7 @@ main,header,footer,section{position:relative;z-index:1}
 
 /* ---------- rodapé ---------- */
 .rodape{background:var(--tinta);color:var(--creme);padding:clamp(60px,8vw,100px) clamp(16px,4vw,40px) 30px;overflow:hidden}
-.rodape__grande{font-family:var(--display);text-transform:uppercase;font-size:clamp(90px,26vw,440px);line-height:.8;margin:0;color:var(--onca);letter-spacing:-.01em;white-space:nowrap}
+.rodape__grande{font-family:var(--display);text-transform:uppercase;font-size:clamp(90px,26vw,440px);line-height:.9;margin:0;background:var(--estampa) 0% 30%/130% auto var(--onca);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.01em;white-space:nowrap;animation:estampa-anda 16s ease-in-out infinite alternate;width:max-content;padding-right:.04em}
 .rodape__linha{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;border-top:2px solid var(--creme);padding-top:16px;margin-top:30px;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
 .rodape__linha a{color:var(--onca)}
 @media (max-width:640px){.rodape{padding-bottom:110px}}
@@ -246,6 +252,7 @@ main,header,footer,section{position:relative;z-index:1}
 :focus-visible{outline:3px solid var(--onca);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){
   .grao{animation:none}
+  .faixa,.galeria__titulo span,.rodape__grande{animation:none!important}
   .loader{display:none}
   *{transition:none!important}
 }
@@ -511,11 +518,13 @@ window.TOSKA = {
         <span class="cartao__tag">${a.oficio}</span>
         ${artes.map((x,k)=>`<img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : "Arte de " + a.nome}" loading="lazy" class="${k===0?"ativa":""}">`).join("")}
       </div>
+      <div class="cartao__info">
       <h3 class="cartao__nome">${a.nome}</h3>
       <p class="cartao__handle">@${a.handle}</p>
       <div class="cartao__botoes">
         <a class="pilula pilula--onca" href="${c.href}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#${c.icone}"/></svg>${c.rotulo === "WhatsApp" ? "Agendar" : "Chamar"}</a>
         <a class="pilula" href="${igURL(a.handle)}" target="_blank" rel="noopener">Portfólio</a>
+      </div>
       </div>
     </article>`;
   }).join("");
