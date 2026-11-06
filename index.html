@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toska Ateliê · Tatuagens e unhas legais · Campinas</title>
+<meta name="description" content="Toska Ateliê: estúdio artístico de tatuagem e nail art na Vila Industrial, Campinas. Um espaço acolhedor e seguro para todes. Atendimento com agendamento prévio com cada artista.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Toska Ateliê · Tatuagens e unhas legais">
+<meta property="og:description" content="O mais novo estúdio artístico de Campinas. Tatuagem e nail art na Vila Industrial.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://toskatelie.github.io/">
+<meta property="og:image" content="https://toskatelie.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Toska Ateliê · Tatuagens e unhas legais">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://toskatelie.github.io/og.jpg">
+<link rel="canonical" href="https://toskatelie.github.io/">
+<meta name="theme-color" content="#efe9dc">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e8892b'/%3E%3Cg fill='%231d140e'%3E%3Cpath d='M20 18a8 8 0 1 0 .1 0zm0 4a4 4 0 1 1-.1 0z'/%3E%3Cpath d='M44 22a9 9 0 1 0 .1 0zm0 4a5 5 0 1 1-.1 0z'/%3E%3Cpath d='M30 38a9 9 0 1 0 .1 0zm0 4a5 5 0 1 1-.1 0z'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+/* =========================================================
+   TOSKA ATELIÊ — identidade tirada do Instagram @toskatelie
+   creme + mancha verde granulada, verde-musgo, vinho, laranja onça
+   ========================================================= */
+:root{
+  --creme:#efe9dc;
+  --creme-2:#e6dfcf;
+  --tinta:#1d140e;
+  --musgo:#3f5a3a;
+  --musgo-escuro:#2c4229;
+  --vinho:#7a1f2b;
+  --onca:#e8892b;
+  --onca-claro:#f3b25f;
+  --rosa:#f2a7c8;
+  --azul:#9ec9f0;
+  --display:"Anton", "Impact", "Arial Narrow Bold", sans-serif;
+  --corpo:"Archivo Narrow", "Arial Narrow", system-ui, sans-serif;
+  --raio:22px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{
+  margin:0;background:var(--creme);color:var(--tinta);
+  font-family:var(--corpo);font-size:18px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+::selection{background:var(--onca);color:var(--tinta)}
+
+/* grão de papel por cima de tudo */
+.grao{
+  pointer-events:none;position:fixed;inset:-50%;z-index:90;opacity:.16;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grao 1s steps(4) infinite;
+}
+@keyframes grao{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
+
+/* mancha verde que acompanha o cursor (como nos posts) */
+.mancha{
+  position:fixed;left:0;top:0;width:62vmax;height:62vmax;z-index:0;pointer-events:none;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, rgba(63,90,58,.55) 0%, rgba(63,90,58,.28) 32%, rgba(63,90,58,0) 66%);
+  filter:blur(30px);transform:translate(-50%,-50%);
+}
+main,header,footer,section{position:relative;z-index:1}
+
+/* ---------- preloader ---------- */
+.loader{
+  position:fixed;inset:0;z-index:100;background:var(--tinta);color:var(--creme);
+  display:grid;place-items:center;overflow:hidden;
+}
+.loader__palavra{font-family:var(--display);font-size:clamp(72px,22vw,280px);line-height:.85;display:flex;overflow:hidden}
+.loader__palavra span{display:inline-block;transform:translateY(105%)}
+.loader__conta{position:absolute;bottom:24px;right:28px;font-family:var(--display);font-size:22px;color:var(--onca)}
+.sem-js .loader{display:none}
+
+/* ---------- topo ---------- */
+.topo{
+  position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(16px,4vw,40px);transition:background .3s, padding .3s, border-color .3s;border-bottom:2px solid transparent;
+}
+.topo.rolou{background:rgba(239,233,220,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom-color:var(--tinta);padding-block:10px}
+.topo__marca{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--vinho);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:15px}
+.topo__marca svg{width:38px;height:38px}
+.topo__acoes{display:flex;gap:10px;align-items:center}
+.pilula{
+  display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:2px solid var(--tinta);
+  padding:10px 18px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:14px;
+  text-decoration:none;background:var(--creme);color:var(--tinta);cursor:pointer;
+  transition:transform .25s, background .25s, color .25s;
+}
+.pilula:hover{transform:translateY(-2px) rotate(-1.5deg);background:var(--tinta);color:var(--creme)}
+.pilula--onca{background:var(--onca);border-color:var(--tinta)}
+.pilula--onca:hover{background:var(--tinta);color:var(--onca)}
+.pilula svg{width:18px;height:18px}
+@media (max-width:640px){.topo__ig{display:none}}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;padding:110px clamp(16px,4vw,40px) 40px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.hero__linha{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;text-transform:uppercase;font-weight:600;letter-spacing:.03em}
+.hero__linha p{margin:0;max-width:22ch;text-align:right;font-size:clamp(14px,1.4vw,18px);line-height:1.15}
+.hero__linha .esq{text-align:left;color:var(--vinho)}
+.hero__titulo{
+  font-family:var(--display);color:var(--musgo);text-transform:uppercase;
+  font-size:clamp(84px,21vw,360px);line-height:.9;margin:10px 0 0;letter-spacing:-.01em;
+  -webkit-text-stroke:3px var(--tinta);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--creme-2), 7px 7px 0 var(--tinta);
+}
+.hero__titulo .linha{display:block;overflow:hidden;padding:.1em .06em .06em 0}
+.hero__titulo .letra{display:inline-block;will-change:transform}
+.hero__titulo .linha:nth-child(2){text-align:right}
+.hero__base{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-top:24px}
+.hero__texto{max-width:34ch;text-transform:uppercase;text-align:justify;font-weight:500;font-size:clamp(15px,1.5vw,19px);line-height:1.2;margin:0}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:760px){
+  .hero__base{grid-template-columns:1fr}
+  .hero__cta{justify-content:flex-start}
+  .hero__titulo{font-size:31vw;-webkit-text-stroke:2px var(--tinta);text-shadow:4px 4px 0 var(--creme-2), 5px 5px 0 var(--tinta)}
+}
+
+/* onça: manchas (rosetas) que flutuam */
+.rosetas{position:absolute;inset:0;pointer-events:none;z-index:-1}
+.roseta{position:absolute;width:var(--t,70px);height:var(--t,70px);color:var(--tinta);opacity:.9}
+.roseta svg{width:100%;height:100%;display:block}
+.selo{
+  position:absolute;right:clamp(10px,6vw,90px);top:24%;width:clamp(120px,15vw,200px);aspect-ratio:1;z-index:2;
+}
+.selo svg{width:100%;height:100%;overflow:visible}
+.selo text{font-family:var(--corpo);font-weight:700;letter-spacing:.24em;font-size:12.5px;fill:var(--tinta);text-transform:uppercase}
+@media (max-width:760px){.selo{position:relative;top:auto;right:auto;margin:14px 0 0 auto;width:104px}}
+
+.onca{position:absolute;bottom:4%;left:0;width:clamp(160px,22vw,320px);z-index:1;pointer-events:none}
+
+/* ---------- faixa corrida ---------- */
+.faixa{background:var(--tinta);color:var(--creme);overflow:hidden;border-block:3px solid var(--tinta);transform:rotate(-2deg);margin:40px -20px;position:relative;z-index:3}
+.faixa--b{background:var(--onca);color:var(--tinta);transform:rotate(1.5deg);margin-top:-30px}
+.faixa__trilho{display:flex;width:max-content;will-change:transform}
+.faixa__item{font-family:var(--display);font-size:clamp(34px,6vw,72px);text-transform:uppercase;padding:10px 0;display:flex;align-items:center;white-space:nowrap}
+.faixa__item i{display:inline-block;width:.55em;height:.55em;margin:0 .45em;color:var(--onca)}
+.faixa--b .faixa__item i{color:var(--vinho)}
+.faixa__item i svg{width:100%;height:100%;display:block}
+
+/* ---------- manifesto ---------- */
+.secao{padding:clamp(80px,12vw,160px) clamp(16px,4vw,40px)}
+.rotulo{display:flex;justify-content:space-between;text-transform:uppercase;font-weight:700;letter-spacing:.08em;font-size:14px;color:var(--vinho);border-top:2px solid var(--tinta);padding-top:12px;margin-bottom:clamp(30px,5vw,60px)}
+.manifesto__texto{
+  font-family:var(--corpo);font-weight:600;text-transform:uppercase;text-align:justify;
+  font-size:clamp(26px,4.3vw,64px);line-height:1.02;margin:0 0 .6em;max-width:1300px;
+}
+.manifesto__texto .p{opacity:.12;transition:none}
+.manifesto__texto em{font-style:normal;color:var(--vinho)}
+.manifesto__pe{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.manifesto__pe div{border-top:2px solid var(--tinta);padding-top:12px;text-transform:uppercase;text-align:justify;line-height:1.15;font-weight:500}
+.manifesto__pe b{display:block;font-family:var(--display);font-weight:400;font-size:34px;color:var(--musgo);line-height:1;margin-bottom:8px}
+@media (max-width:760px){.manifesto__pe{grid-template-columns:1fr}}
+
+/* ---------- artistas ---------- */
+.artistas__grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(18px,2.4vw,30px)}
+.cartao{
+  --gira:0deg;position:relative;background:var(--creme);border:2.5px solid var(--tinta);border-radius:var(--raio);
+  padding:16px;transform:rotate(var(--gira));box-shadow:8px 8px 0 var(--tinta);transition:box-shadow .3s;
+  transform-style:preserve-3d;will-change:transform;
+}
+.cartao:hover{box-shadow:12px 12px 0 var(--tinta)}
+.cartao__arte{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;border:2px solid var(--tinta);background:var(--tinta)}
+.cartao__arte > *{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s}
+.cartao__arte > .ativa{opacity:1}
+.cartao__tag{position:absolute;top:12px;left:12px;z-index:2;background:var(--creme);border:2px solid var(--tinta);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.cartao__nome{font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,3.4vw,46px);line-height:.95;margin:16px 0 4px;color:var(--musgo)}
+.cartao__handle{margin:0 0 14px;color:var(--vinho);font-weight:700}
+.cartao__botoes{display:flex;gap:8px;flex-wrap:wrap}
+.cartao__botoes .pilula{flex:1;justify-content:center;padding:12px 14px}
+
+/* ---------- galeria horizontal ---------- */
+.galeria{background:var(--tinta);color:var(--creme);overflow:hidden;padding:0}
+.galeria__topo{padding:clamp(70px,9vw,120px) clamp(16px,4vw,40px) 30px}
+.galeria__topo .rotulo{color:var(--onca);border-color:var(--creme)}
+.galeria__titulo{font-family:var(--display);text-transform:uppercase;font-size:clamp(60px,11vw,180px);line-height:.85;margin:0;color:var(--creme)}
+.galeria__titulo span{color:var(--onca)}
+.galeria__trilho{display:flex;gap:clamp(18px,3vw,40px);padding:20px clamp(16px,4vw,40px) clamp(80px,10vw,120px);width:max-content;align-items:center}
+.peca{flex:0 0 auto;width:clamp(240px,28vw,400px);will-change:transform}
+.peca:nth-child(even){margin-top:80px}
+.peca__img{aspect-ratio:4/5;border-radius:18px;overflow:hidden;border:2.5px solid var(--creme);position:relative}
+.peca__img > *{width:100%;height:100%;object-fit:cover;display:block}
+.peca__leg{display:flex;justify-content:space-between;margin-top:10px;text-transform:uppercase;font-weight:600;letter-spacing:.05em;font-size:14px}
+.peca__leg a{color:var(--onca);text-decoration:none}
+
+/* ---------- agendamento ---------- */
+.passos{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);counter-reset:p}
+.passo{border:2.5px solid var(--tinta);border-radius:var(--raio);padding:26px;background:var(--creme);position:relative;overflow:hidden}
+.passo::before{counter-increment:p;content:counter(p,decimal-leading-zero);font-family:var(--display);font-size:96px;line-height:.8;color:var(--onca);-webkit-text-stroke:2px var(--tinta);display:block;margin-bottom:18px}
+.passo h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:32px;line-height:1;margin:0 0 8px;color:var(--musgo)}
+.passo p{margin:0;text-transform:uppercase;text-align:justify;line-height:1.2;font-weight:500}
+@media (max-width:860px){.passos{grid-template-columns:1fr}}
+
+.aviso{margin-top:clamp(30px,4vw,50px);background:var(--musgo);color:var(--creme);border-radius:var(--raio);padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;border:2.5px solid var(--tinta)}
+.aviso p{margin:0;font-family:var(--display);text-transform:uppercase;font-size:clamp(28px,3.6vw,54px);line-height:.98}
+@media (max-width:760px){.aviso{grid-template-columns:1fr}}
+
+/* ---------- local ---------- */
+.local{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(20px,4vw,60px);align-items:end}
+.local__grande{font-family:var(--display);text-transform:uppercase;font-size:clamp(64px,12vw,200px);line-height:.92;margin:0;color:var(--musgo);-webkit-text-stroke:2px var(--tinta);paint-order:stroke fill}
+.local__info{text-transform:uppercase;text-align:justify;font-weight:500;line-height:1.2}
+.local__info p{margin:0 0 16px}
+@media (max-width:860px){.local{grid-template-columns:1fr}}
+
+/* ---------- rodapé ---------- */
+.rodape{background:var(--tinta);color:var(--creme);padding:clamp(60px,8vw,100px) clamp(16px,4vw,40px) 30px;overflow:hidden}
+.rodape__grande{font-family:var(--display);text-transform:uppercase;font-size:clamp(90px,26vw,440px);line-height:.8;margin:0;color:var(--onca);letter-spacing:-.01em;white-space:nowrap}
+.rodape__linha{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;border-top:2px solid var(--creme);padding-top:16px;margin-top:30px;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
+.rodape__linha a{color:var(--onca)}
+@media (max-width:640px){.rodape{padding-bottom:110px}}
+.rodape .pilula{background:transparent;color:var(--creme);border-color:var(--creme)}
+.rodape .pilula:hover{background:var(--creme);color:var(--tinta)}
+
+/* ---------- botão flutuante + gaveta de artistas ---------- */
+.flutua{position:fixed;right:18px;bottom:18px;z-index:60;width:66px;height:66px;border-radius:50%;border:2.5px solid var(--tinta);background:var(--onca);display:grid;place-items:center;cursor:pointer;box-shadow:5px 5px 0 var(--tinta);transition:transform .25s}
+.flutua:hover{transform:rotate(-10deg) scale(1.05)}
+.flutua svg{width:30px;height:30px}
+.gaveta{position:fixed;inset:0;z-index:80;display:none}
+.gaveta.aberta{display:block}
+.gaveta__fundo{position:absolute;inset:0;background:rgba(29,20,14,.55);backdrop-filter:blur(3px)}
+.gaveta__painel{position:absolute;left:50%;bottom:0;transform:translate(-50%,0);width:min(560px,100%);max-height:88svh;overflow:auto;background:var(--creme);border:2.5px solid var(--tinta);border-bottom:0;border-radius:26px 26px 0 0;padding:24px 20px 30px}
+.gaveta__painel h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:44px;line-height:.95;margin:0 0 6px;color:var(--musgo)}
+.gaveta__painel > p{margin:0 0 18px;text-transform:uppercase;font-weight:500}
+.gaveta__lista{display:grid;gap:10px}
+.gaveta__item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:2px solid var(--tinta);border-radius:16px;padding:12px 14px;text-decoration:none;background:var(--creme);transition:background .2s}
+.gaveta__item:hover{background:var(--onca)}
+.gaveta__item b{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:24px;display:block;line-height:1}
+.gaveta__item small{text-transform:uppercase;font-weight:600;color:var(--vinho)}
+.gaveta__item svg{width:26px;height:26px;flex:0 0 auto}
+.gaveta__fechar{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:2px solid var(--tinta);background:var(--creme);cursor:pointer;font-size:22px;line-height:1}
+
+/* acessibilidade */
+.oculto{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--onca);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  .grao{animation:none}
+  .loader{display:none}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<!-- =========================================================
+     CONFIGURAÇÃO DO SITE — edite só este bloco
+     - whatsapp: só números com DDI e DDD, ex.: "5519999999999".
+       Se ficar vazio, o botão leva para o Instagram da artista.
+     - artes: caminhos de imagens (ex.: "artes/zeca-1.jpg").
+       Se ficar vazio, aparecem artes de exemplo.
+     ========================================================= -->
+<script>
+window.TOSKA = {
+  nome: "Toska Ateliê",
+  instagram: "toskatelie",
+  bairro: "Vila Industrial",
+  cidade: "Campinas",
+  endereco: "",            // endereço completo (opcional) — aparece no site e no botão "Como chegar"
+  onca: "",                // imagem da onça da Toska (PNG com fundo transparente), ex.: "artes/onca.png"
+  artistas: [
+    // nome: troque pelo nome artístico de cada uma (por enquanto está o @)
+    { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "", artes: [] },
+    { nome: "mands.arts",  handle: "_mands.arts", oficio: "Tatuagem", whatsapp: "", artes: [] },
+    { nome: "zecatattoo",  handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "", artes: [] },
+    { nome: "pecadottt",   handle: "pecadottt",   oficio: "Tatuagem", whatsapp: "", artes: [] },
+    { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "", artes: [] }
+  ]
+};
+</script>
+
+<div class="loader" aria-hidden="true">
+  <div class="loader__palavra"><span>T</span><span>O</span><span>S</span><span>K</span><span>A</span></div>
+  <div class="loader__conta">0%</div>
+</div>
+
+<div class="grao" aria-hidden="true"></div>
+<div class="mancha" aria-hidden="true"></div>
+
+<header class="topo">
+  <a class="topo__marca" href="#inicio" aria-label="Toska Ateliê, início">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-roseta-selo"/></svg>
+    <span>Toska Ateliê</span>
+  </a>
+  <nav class="topo__acoes">
+    <a class="pilula topo__ig" data-ig-estudio href="#" target="_blank" rel="noopener">Instagram</a>
+    <button class="pilula pilula--onca" data-abre-gaveta type="button">Agendar</button>
+  </nav>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="titulo-hero">
+    <div class="rosetas" aria-hidden="true"></div>
+    <img class="onca" data-onca alt="" aria-hidden="true" hidden>
+    <div class="hero__linha">
+      <p class="esq">O mais novo estúdio artístico de Campinas</p>
+      <p>Tatuagens<br>e unhas<br>legais</p>
+    </div>
+    <h1 class="hero__titulo" id="titulo-hero">
+      <span class="linha" data-letras>Toska</span>
+      <span class="linha" data-letras>Ateliê</span>
+    </h1>
+    <div class="selo" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <defs><path id="circulo" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+        <circle cx="100" cy="100" r="98" fill="var(--onca)" stroke="var(--tinta)" stroke-width="3"/>
+        <g class="selo__giro"><text><textPath href="#circulo">Cena underground · Campinas · Arte no corpo ·</textPath></text></g>
+        <use href="#i-roseta" x="58" y="58" width="84" height="84" style="color:var(--tinta)"/>
+      </svg>
+    </div>
+    <div class="hero__base">
+      <p class="hero__texto">Um ateliê de arte em suas diversas formas de expressão. Cinco artistas da cena mais toska de Campinas num espaço acolhedor e seguro para todes.</p>
+      <div class="hero__cta">
+        <button class="pilula pilula--onca" data-abre-gaveta type="button">
+          <svg aria-hidden="true"><use href="#i-whats"/></svg> Agendar com uma artista
+        </button>
+        <a class="pilula" href="#artistas">Ver artistas</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="faixa" aria-hidden="true"><div class="faixa__trilho" data-faixa="1"></div></div>
+
+  <!-- MANIFESTO -->
+  <section class="secao" id="sobre" aria-labelledby="titulo-sobre">
+    <div class="rotulo"><span id="titulo-sobre">Conheça a Toska</span><span>Tatuagens e unhas legais</span></div>
+    <p class="manifesto__texto" data-palavras>Somos um coletivo de cinco artistas que acreditam na arte como algo <em>movimentador da vida</em>.</p>
+    <p class="manifesto__texto" data-palavras>Trabalhamos com arte nos diversos suportes, com foco em <em>tatuagens e nail art</em>.</p>
+    <p class="manifesto__texto" data-palavras>Nosso espaço é a construção do desejo de ocupar um lugar de criatividade.</p>
+    <div class="manifesto__pe">
+      <div><b>Respeito</b>Recebemos diariamente mulheres, pessoas LGBTQIA+ e pessoas de diversas raças. Não toleramos nenhum tipo de preconceito.</div>
+      <div><b>Arte é trabalho</b>Prezamos pelo bom convívio e pelo respeito ao nosso trabalho. Artista também é gente.</div>
+      <div><b>Portas abertas</b>Funcionamos com agendamento antecipado. Estamos de portas abertas para receber você e sua ideia.</div>
+    </div>
+  </section>
+
+  <!-- ARTISTAS -->
+  <section class="secao" id="artistas" aria-labelledby="titulo-artistas" style="padding-top:0">
+    <div class="rotulo"><span id="titulo-artistas">As artistas</span><span data-conta-artistas></span></div>
+    <div class="artistas__grade" data-artistas></div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="galeria" id="artes" aria-labelledby="titulo-galeria">
+    <div class="galeria__topo">
+      <div class="rotulo"><span>Galeria</span><span>Arraste ou role</span></div>
+      <h2 class="galeria__titulo" id="titulo-galeria">Arte que <span>mexe</span></h2>
+    </div>
+    <div class="galeria__janela"><div class="galeria__trilho" data-galeria></div></div>
+  </section>
+
+  <div class="faixa faixa--b" aria-hidden="true"><div class="faixa__trilho" data-faixa="-1"></div></div>
+
+  <!-- AGENDAMENTO -->
+  <section class="secao" id="agendar" aria-labelledby="titulo-agendar">
+    <div class="rotulo"><span id="titulo-agendar">Como agendar</span><span>Só com hora marcada</span></div>
+    <div class="passos">
+      <div class="passo"><h3>Escolha a artista</h3><p>Veja os trabalhos de cada uma e escolha quem tem o traço que combina com a sua ideia.</p></div>
+      <div class="passo"><h3>Chame no WhatsApp</h3><p>Conte sua ideia, o tamanho e o lugar do corpo. Cada artista agenda direto com você.</p></div>
+      <div class="passo"><h3>Venha pro ateliê</h3><p>No dia marcado, é só chegar. Visitas apenas com agendamento prévio.</p></div>
+    </div>
+    <div class="aviso">
+      <p>Estamos de portas abertas para receber você e sua ideia</p>
+      <button class="pilula pilula--onca" data-abre-gaveta type="button"><svg aria-hidden="true"><use href="#i-whats"/></svg> Agendar agora</button>
+    </div>
+  </section>
+
+  <!-- LOCAL -->
+  <section class="secao" id="local" aria-labelledby="titulo-local" style="padding-top:0">
+    <div class="rotulo"><span id="titulo-local">Onde estamos</span><span>Coração de Campinas</span></div>
+    <div class="local">
+      <h2 class="local__grande" data-bairro>Vila Industrial</h2>
+      <div class="local__info">
+        <p data-endereco>Pertinho do centro, no coração de Campinas. O endereço é passado no agendamento.</p>
+        <p>Visitas apenas com agendamento prévio com cada artista.</p>
+        <a class="pilula" data-como-chegar href="#" target="_blank" rel="noopener" hidden>Como chegar</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <p class="rodape__grande" aria-hidden="true">Toska</p>
+  <div class="rodape__linha">
+    <span>Toska Ateliê · Tatuagens e unhas legais · Campinas</span>
+    <a data-ig-estudio href="#" target="_blank" rel="noopener">@toskatelie</a>
+    <span>Site criado por Porta Ad Omnia</span>
+  </div>
+</footer>
+
+<button class="flutua" data-abre-gaveta type="button" aria-label="Agendar com uma artista pelo WhatsApp">
+  <svg aria-hidden="true"><use href="#i-whats"/></svg>
+</button>
+
+<div class="gaveta" role="dialog" aria-modal="true" aria-labelledby="titulo-gaveta">
+  <div class="gaveta__fundo" data-fecha-gaveta></div>
+  <div class="gaveta__painel">
+    <button class="gaveta__fechar" data-fecha-gaveta type="button" aria-label="Fechar">×</button>
+    <h2 id="titulo-gaveta">Com quem você quer agendar?</h2>
+    <p>Cada artista agenda direto com você.</p>
+    <div class="gaveta__lista" data-gaveta-lista></div>
+  </div>
+</div>
+
+<!-- ícones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-whats" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.22 4.25-9.46 9.48-9.46 2.53 0 4.91.99 6.7 2.78a9.4 9.4 0 0 1 2.77 6.7c0 5.22-4.25 9.46-9.47 9.46zm8.06-17.52A11.32 11.32 0 0 0 12.04.64C5.76.64.66 5.74.65 12.01c0 2 .52 3.96 1.52 5.69L.56 23.6l6.04-1.58a11.36 11.36 0 0 0 5.43 1.38h.01c6.27 0 11.38-5.1 11.38-11.37 0-3.04-1.18-5.9-3.33-8.05z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.3a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 2.2a4.3 4.3 0 1 1 0 8.6 4.3 4.3 0 0 1 0-8.6zm6.8-3.9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></symbol>
+  <!-- roseta de onça: anel quebrado em manchas + miolo laranja com pinta -->
+  <symbol id="i-roseta" viewBox="0 0 100 100">
+    <ellipse cx="50" cy="52" rx="24" ry="21" fill="#e8892b"/>
+    <g fill="currentColor">
+      <path d="M30 14c9-6 22-6 29 1 4 4-1 9-7 9-9 0-15 1-21 6-5 4-11 1-10-5 1-4 4-8 9-11z"/>
+      <path d="M70 18c9 3 15 11 16 21 1 6-5 8-9 4-4-5-7-10-12-13-5-4-2-14 5-12z"/>
+      <path d="M86 52c2 11-3 22-12 28-5 3-9-2-6-7 3-6 5-11 5-18 0-7 11-10 13-3z"/>
+      <path d="M58 82c-9 6-21 7-31 2-5-3-3-10 3-10 7 0 13-1 19-4 7-3 14 7 9 12z"/>
+      <path d="M16 70c-6-9-7-21-2-30 3-5 10-3 9 3-1 7 0 13 3 19 3 7-6 13-10 8z"/>
+      <circle cx="44" cy="47" r="5"/><circle cx="57" cy="58" r="4"/>
+    </g>
+  </symbol>
+  <symbol id="i-roseta-selo" viewBox="0 0 64 64">
+    <rect x="1.5" y="1.5" width="61" height="61" rx="16" fill="#e8892b" stroke="#1d140e" stroke-width="3"/>
+    <g fill="#1d140e">
+      <path d="M20 13c-5 0-9 3-9 8 0 5 4 9 9 9s8-4 8-9c0-4-3-8-8-8zm0 4c3 0 4 2 4 4 0 3-2 5-4 5-3 0-5-2-5-5 0-2 2-4 5-4z"/>
+      <path d="M44 17c-6 0-10 4-10 9s4 10 10 10 9-4 9-10c0-5-4-9-9-9zm0 4c3 0 5 2 5 5 0 4-2 6-5 6s-6-2-6-6c0-3 3-5 6-5z"/>
+      <path d="M28 35c-6 0-10 4-10 10s4 10 10 10 10-4 10-10-4-10-10-10zm0 4c3 0 6 3 6 6 0 4-3 6-6 6s-6-2-6-6c0-3 3-6 6-6z"/>
+      <circle cx="20" cy="21.5" r="2"/><circle cx="44" cy="26.5" r="2"/><circle cx="28" cy="45" r="2"/>
+    </g>
+  </symbol>
+</svg>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  const C = window.TOSKA;
+  const $ = (s, el=document) => el.querySelector(s);
+  const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+  const reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const temGSAP = typeof window.gsap !== "undefined";
+  if (!temGSAP) document.documentElement.classList.add("sem-js");
+
+  const igURL = h => `https://www.instagram.com/${h}/`;
+  const msg = a => `Olá, ${a.nome}! Vi o site da Toska Ateliê e quero agendar ${a.oficio === "Nail art" ? "um horário de unhas" : "uma tatuagem"}.`;
+  const contato = a => a.whatsapp
+    ? { href: `https://wa.me/${a.whatsapp}?text=${encodeURIComponent(msg(a))}`, rotulo: "WhatsApp", icone: "i-whats" }
+    : { href: igURL(a.handle), rotulo: "Chamar no Instagram", icone: "i-ig" };
+
+  /* ---------- artes de exemplo (somem quando houver artes reais) ---------- */
+  const PALETAS = [
+    ["#e8892b","#1d140e","#efe9dc"],["#3f5a3a","#efe9dc","#e8892b"],["#7a1f2b","#efe9dc","#f3b25f"],
+    ["#f2a7c8","#1d140e","#9ec9f0"],["#9ec9f0","#1d140e","#f2a7c8"],["#efe9dc","#1d140e","#7a1f2b"]
+  ];
+  const FORMAS = [
+    // olho
+    (t,f) => `<ellipse cx="100" cy="125" rx="70" ry="40" fill="${f}" stroke="${t}" stroke-width="8"/><circle cx="100" cy="125" r="24" fill="${t}"/><circle cx="92" cy="117" r="7" fill="${f}"/><path d="M30 125 Q100 40 170 125" fill="none" stroke="${t}" stroke-width="8"/>`,
+    // estrela
+    (t,f) => `<path d="M100 40 L118 100 L180 100 L130 136 L148 196 L100 160 L52 196 L70 136 L20 100 L82 100 Z" fill="${f}" stroke="${t}" stroke-width="8" stroke-linejoin="round"/>`,
+    // chama
+    (t,f) => `<path d="M100 30 C130 80 160 100 150 160 C142 200 58 200 50 160 C42 120 80 110 78 70 C96 90 104 70 100 30 Z" fill="${f}" stroke="${t}" stroke-width="8" stroke-linejoin="round"/><path d="M100 110 C115 135 125 150 118 170 C110 186 90 186 84 170 C78 150 96 140 100 110Z" fill="${t}"/>`,
+    // coração com punhal
+    (t,f) => `<path d="M100 185 C40 140 20 110 40 75 C58 46 92 54 100 80 C108 54 142 46 160 75 C180 110 160 140 100 185 Z" fill="${f}" stroke="${t}" stroke-width="8"/><path d="M150 30 L60 170" stroke="${t}" stroke-width="10" stroke-linecap="round"/><path d="M140 52 L162 60" stroke="${t}" stroke-width="10" stroke-linecap="round"/>`,
+    // unha (nail art)
+    (t,f) => `<path d="M70 190 L70 90 C70 45 130 45 130 90 L130 190 Z" fill="${f}" stroke="${t}" stroke-width="8"/><circle cx="100" cy="100" r="9" fill="${t}"/><circle cx="88" cy="130" r="6" fill="${t}"/><circle cx="112" cy="150" r="7" fill="${t}"/>`,
+    // cobra
+    (t,f) => `<path d="M40 180 C40 140 160 150 160 110 C160 70 40 90 40 55 C40 30 90 25 120 40" fill="none" stroke="${t}" stroke-width="22" stroke-linecap="round"/><path d="M40 180 C40 140 160 150 160 110 C160 70 40 90 40 55 C40 30 90 25 120 40" fill="none" stroke="${f}" stroke-width="10" stroke-linecap="round"/><circle cx="124" cy="40" r="14" fill="${t}"/>`
+  ];
+  function arteExemplo(i, rotulo){
+    const [fundo, tinta, forma] = PALETAS[i % PALETAS.length];
+    const desenho = FORMAS[i % FORMAS.length](tinta, forma);
+    const pontos = Array.from({length:18},(_,k)=>`<circle cx="${(k*37)%200}" cy="${(k*61)%250}" r="${2+(k%3)}" fill="${tinta}" opacity=".35"/>`).join("");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250"><rect width="200" height="250" fill="${fundo}"/>${pontos}<g transform="translate(0 12)">${desenho}</g><text x="100" y="238" text-anchor="middle" font-family="Archivo Narrow, Arial Narrow, sans-serif" font-weight="700" font-size="12" letter-spacing="2" fill="${tinta}">${rotulo.toUpperCase()}</text></svg>`;
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  }
+  const artesDe = (a, idx) => a.artes && a.artes.length
+    ? a.artes.map(src => ({src, exemplo:false}))
+    : [0,1,2].map(k => ({src: arteExemplo(idx*3 + k, "arte de exemplo"), exemplo:true}));
+
+  /* ---------- montar páginas a partir da configuração ---------- */
+  $$("[data-ig-estudio]").forEach(a => a.href = igURL(C.instagram));
+  $("[data-bairro]").textContent = C.bairro;
+  if (C.onca){ const o = $("[data-onca]"); o.src = C.onca; o.hidden = false; }
+  if (C.endereco){
+    $("[data-endereco]").textContent = `${C.endereco} · ${C.bairro}, ${C.cidade}`;
+    const cc = $("[data-como-chegar]");
+    cc.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(`${C.endereco}, ${C.cidade}`);
+    cc.hidden = false;
+  }
+  $("[data-conta-artistas]").textContent = `${C.artistas.length} artistas · ${C.artistas.filter(a=>a.oficio!=="Nail art").length} tatuadoras`;
+
+  const giros = ["-1.6deg","1.2deg","-0.8deg","1.8deg","-1.2deg","0.6deg"];
+  $("[data-artistas]").innerHTML = C.artistas.map((a, i) => {
+    const c = contato(a);
+    const artes = artesDe(a, i);
+    return `<article class="cartao" style="--gira:${giros[i % giros.length]}">
+      <div class="cartao__arte" data-ciclo>
+        <span class="cartao__tag">${a.oficio}</span>
+        ${artes.map((x,k)=>`<img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : "Arte de " + a.nome}" loading="lazy" class="${k===0?"ativa":""}">`).join("")}
+      </div>
+      <h3 class="cartao__nome">${a.nome}</h3>
+      <p class="cartao__handle">@${a.handle}</p>
+      <div class="cartao__botoes">
+        <a class="pilula pilula--onca" href="${c.href}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#${c.icone}"/></svg>${c.rotulo === "WhatsApp" ? "Agendar" : "Chamar"}</a>
+        <a class="pilula" href="${igURL(a.handle)}" target="_blank" rel="noopener">Portfólio</a>
+      </div>
+    </article>`;
+  }).join("");
+
+  // galeria: intercala uma arte de cada artista por vez
+  const listas = C.artistas.map((a,i) => artesDe(a,i).map(x => ({a, x})));
+  const pecas = [];
+  for (let k = 0; k < Math.max(...listas.map(l => l.length)); k++) listas.forEach(l => l[k] && pecas.push(l[k]));
+  $("[data-galeria]").innerHTML = pecas.map(({a,x}) => `
+    <figure class="peca" style="margin-left:0;margin-right:0">
+      <div class="peca__img"><img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : "Arte de " + a.nome}" loading="lazy"></div>
+      <figcaption class="peca__leg"><span>${a.nome}</span><a href="${igURL(a.handle)}" target="_blank" rel="noopener">@${a.handle}</a></figcaption>
+    </figure>`).join("");
+
+  $("[data-gaveta-lista]").innerHTML = C.artistas.map(a => {
+    const c = contato(a);
+    return `<a class="gaveta__item" href="${c.href}" target="_blank" rel="noopener">
+      <span><b>${a.nome}</b><small>${a.oficio} · ${c.rotulo}</small></span>
+      <svg aria-hidden="true"><use href="#${c.icone}"/></svg></a>`;
+  }).join("");
+
+  /* ---------- topo ganha fundo ao rolar ---------- */
+  const topo = $(".topo");
+  const marcaTopo = () => topo.classList.toggle("rolou", scrollY > 40);
+  addEventListener("scroll", marcaTopo, { passive: true }); marcaTopo();
+
+  /* ---------- gaveta ---------- */
+  const gaveta = $(".gaveta");
+  const abrir = () => { gaveta.classList.add("aberta"); if (temGSAP && !reduz) gsap.fromTo(".gaveta__painel",{yPercent:100},{yPercent:0,duration:.55,ease:"expo.out"}); $(".gaveta__fechar").focus(); };
+  const fechar = () => gaveta.classList.remove("aberta");
+  $$("[data-abre-gaveta]").forEach(b => b.addEventListener("click", abrir));
+  $$("[data-fecha-gaveta]").forEach(b => b.addEventListener("click", fechar));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") fechar(); });
+
+  /* ---------- artes trocando sozinhas nos cartões ---------- */
+  $$("[data-ciclo]").forEach((box, i) => {
+    const imgs = $$("img", box); if (imgs.length < 2) return;
+    let k = 0;
+    setInterval(() => { imgs[k].classList.remove("ativa"); k = (k+1) % imgs.length; imgs[k].classList.add("ativa"); }, 2600 + i*350);
+  });
+
+  /* ---------- faixas ---------- */
+  const palavrasFaixa = ["Tatuagem","Nail art","Arte no corpo","Cena underground","Campinas","Toska"];
+  const roseta = `<i><svg viewBox="0 0 100 100"><use href="#i-roseta"/></svg></i>`;
+  $$("[data-faixa]").forEach(t => {
+    const bloco = palavrasFaixa.map(p => `<span class="faixa__item">${p}${roseta}</span>`).join("");
+    t.innerHTML = bloco + bloco + bloco + bloco;
+  });
+
+  /* ---------- rosetas do hero ---------- */
+  const caixa = $(".rosetas");
+  // [x%, y%, tamanho] — nas bordas, para não ficar por cima dos textos
+  const posicoes = innerWidth < 760
+    ? [[46,9,34],[4,56,38],[62,60,30]]
+    : [[42,9,54],[80,14,40],[60,40,34],[3,52,44],[48,74,40],[90,30,30],[30,92,32]];
+  caixa.innerHTML = posicoes.map(([x,y,t]) => `<span class="roseta" style="left:${x}%;top:${y}%;--t:${t}px"><svg viewBox="0 0 100 100"><use href="#i-roseta"/></svg></span>`).join("");
+
+  /* ---------- quebra de letras e palavras ---------- */
+  $$("[data-letras]").forEach(el => { el.innerHTML = [...el.textContent].map(l => `<span class="letra">${l === " " ? "&nbsp;" : l}</span>`).join(""); });
+  $$("[data-palavras]").forEach(el => {
+    const html = el.innerHTML;
+    el.innerHTML = html.replace(/(<em>.*?<\/em>)|([^\s<]+)/g, (m) => `<span class="p">${m}</span>`);
+  });
+
+  if (!temGSAP || reduz){
+    $$(".manifesto__texto .p").forEach(p => p.style.opacity = 1);
+    const l = $(".loader"); if (l) l.remove();
+    return;
+  }
+
+  /* =========================================================
+     ANIMAÇÕES
+     ========================================================= */
+  gsap.registerPlugin(ScrollTrigger);
+
+  // rolagem suave
+  let lenis = null;
+  if (window.Lenis){
+    lenis = new Lenis({ lerp: .1, smoothWheel: true });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+      const alvo = a.getAttribute("href"); if (alvo.length < 2) return;
+      e.preventDefault(); lenis.scrollTo(alvo, { offset: -60 });
+    }));
+  }
+
+  // mancha verde segue o cursor
+  const mancha = $(".mancha");
+  gsap.set(mancha, { x: innerWidth*.7, y: innerHeight*.35 });
+  const mx = gsap.quickTo(mancha, "x", { duration: 2.2, ease: "power3" });
+  const my = gsap.quickTo(mancha, "y", { duration: 2.2, ease: "power3" });
+  addEventListener("pointermove", e => { mx(e.clientX); my(e.clientY); });
+  if (matchMedia("(hover: none)").matches){
+    gsap.to(mancha, { x: () => innerWidth*.25, y: () => innerHeight*.7, duration: 7, ease: "sine.inOut", repeat: -1, yoyo: true });
+  }
+
+  // preloader
+  const conta = $(".loader__conta");
+  const tl = gsap.timeline();
+  const n = { v: 0 };
+  tl.to(".loader__palavra span", { yPercent: -105, duration: .7, ease: "expo.out", stagger: .06 })
+    .to(n, { v: 100, duration: .9, ease: "power2.inOut", onUpdate: () => conta.textContent = Math.round(n.v) + "%" }, 0)
+    .to(".loader__palavra span", { yPercent: -210, duration: .5, ease: "expo.in", stagger: .04 }, "+=.15")
+    .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: .8, ease: "expo.inOut" }, "-=.15")
+    .set(".loader", { display: "none" })
+    .from(".hero__titulo .letra", { yPercent: 115, rotate: 8, duration: 1.1, ease: "expo.out", stagger: .045 }, "-=.45")
+    .from(".hero__linha p, .hero__texto, .hero__cta > *", { y: 24, opacity: 0, duration: .8, ease: "power3.out", stagger: .08 }, "-=.8")
+    .from(".selo", { scale: 0, rotate: -120, duration: 1, ease: "back.out(1.6)" }, "-=.9")
+    .from(".roseta", { scale: 0, opacity: 0, duration: .8, ease: "back.out(2)", stagger: { each: .05, from: "random" } }, "-=1");
+  gsap.set(".loader", { clipPath: "inset(0 0 0% 0)" });
+
+  // selo girando + rosetas flutuando
+  gsap.to(".selo__giro", { rotate: 360, transformOrigin: "100px 100px", duration: 18, ease: "none", repeat: -1 });
+  $$(".roseta").forEach((r, i) => {
+    gsap.to(r, { y: gsap.utils.random(-22, 22), x: gsap.utils.random(-14, 14), rotate: gsap.utils.random(-30, 30), duration: gsap.utils.random(3, 6), ease: "sine.inOut", repeat: -1, yoyo: true, delay: i*.1 });
+  });
+
+  // a onça atravessa o topo da página, indo e voltando
+  if (C.onca){
+    const o = $("[data-onca]");
+    gsap.set(o, { x: -400 });
+    gsap.timeline({ repeat: -1, delay: 2 })
+      .to(o, { x: () => innerWidth + 50, duration: 14, ease: "none" })
+      .set(o, { scaleX: -1 })
+      .to(o, { x: -400, duration: 14, ease: "none" })
+      .set(o, { scaleX: 1 });
+    gsap.to(o, { y: -6, duration: .35, ease: "sine.inOut", repeat: -1, yoyo: true });
+  }
+
+  // hero reage à rolagem
+  gsap.to(".hero__titulo .linha:nth-child(1)", { xPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hero__titulo .linha:nth-child(2)", { xPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".rosetas", { yPercent: 30, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  // letras do título reagem ao cursor
+  $$(".hero__titulo .letra").forEach(l => {
+    l.addEventListener("pointerenter", () => gsap.fromTo(l, { yPercent: 0 }, { yPercent: -12, rotate: gsap.utils.random(-8, 8), duration: .25, ease: "power2.out", yoyo: true, repeat: 1 }));
+  });
+
+  // faixas: andam sozinhas e aceleram com a rolagem
+  const loops = $$("[data-faixa]").map(t => {
+    const dir = Number(t.dataset.faixa);
+    return dir > 0
+      ? gsap.fromTo(t, { xPercent: 0 }, { xPercent: -25, duration: 24, ease: "none", repeat: -1 })
+      : gsap.fromTo(t, { xPercent: -25 }, { xPercent: 0, duration: 24, ease: "none", repeat: -1 });
+  });
+  ScrollTrigger.create({
+    onUpdate: s => {
+      const v = 1 + Math.min(6, Math.abs(s.getVelocity()) / 250);
+      loops.forEach(l => gsap.to(l, { timeScale: v, duration: .2, overwrite: true, onComplete: () => gsap.to(l, { timeScale: 1, duration: 1.2 }) }));
+    }
+  });
+
+  // manifesto acende palavra por palavra
+  $$(".manifesto__texto").forEach(p => {
+    gsap.to($$(".p", p), { opacity: 1, stagger: .08, ease: "none", scrollTrigger: { trigger: p, start: "top 82%", end: "bottom 45%", scrub: true } });
+  });
+  gsap.from(".manifesto__pe > div", { y: 50, opacity: 0, stagger: .12, duration: .9, ease: "power3.out", scrollTrigger: { trigger: ".manifesto__pe", start: "top 85%" } });
+
+  // cartões das artistas entram como figurinhas e inclinam com o mouse
+  gsap.from(".cartao", { y: 120, rotate: (i) => (i % 2 ? 10 : -10), opacity: 0, duration: 1.1, ease: "expo.out", stagger: .1, scrollTrigger: { trigger: "[data-artistas]", start: "top 80%" } });
+  $$(".cartao").forEach(c => {
+    const rx = gsap.quickTo(c, "rotationX", { duration: .5, ease: "power3" });
+    const ry = gsap.quickTo(c, "rotationY", { duration: .5, ease: "power3" });
+    c.addEventListener("pointermove", e => {
+      const r = c.getBoundingClientRect();
+      ry(((e.clientX - r.left) / r.width - .5) * 14);
+      rx(-((e.clientY - r.top) / r.height - .5) * 14);
+    });
+    c.addEventListener("pointerleave", () => { rx(0); ry(0); });
+  });
+
+  // galeria horizontal fixada
+  const trilho = $("[data-galeria]");
+  const distancia = () => Math.max(0, trilho.scrollWidth - innerWidth);
+  gsap.to(trilho, {
+    x: () => -distancia(), ease: "none",
+    scrollTrigger: { trigger: ".galeria", start: "top top", end: () => "+=" + distancia(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
+  });
+  $$(".peca").forEach((p, i) => {
+    gsap.fromTo(p, { rotate: i % 2 ? 6 : -6 }, { rotate: i % 2 ? -4 : 4, ease: "none", scrollTrigger: { trigger: ".galeria", start: "top top", end: () => "+=" + distancia(), scrub: true } });
+  });
+  gsap.from(".galeria__titulo", { yPercent: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".galeria", start: "top 75%" } });
+
+  // passos e aviso
+  gsap.from(".passo", { y: 80, opacity: 0, rotate: (i) => [-4, 3, -2][i], stagger: .12, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".passos", start: "top 82%" } });
+  gsap.from(".aviso", { scale: .92, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".aviso", start: "top 88%" } });
+
+  // local e rodapé
+  gsap.from(".local__grande", { xPercent: -12, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ".local", start: "top 85%" } });
+  gsap.fromTo(".rodape__grande", { xPercent: 12 }, { xPercent: -6, ease: "none", scrollTrigger: { trigger: ".rodape", start: "top bottom", end: "bottom bottom", scrub: true } });
+
+  // botão flutuante aparece depois do hero
+  gsap.from(".flutua", { scale: 0, rotate: -90, duration: .6, ease: "back.out(2)", scrollTrigger: { trigger: ".hero", start: "bottom 80%", toggleActions: "play none none reverse" } });
+
+  addEventListener("load", () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
