@@ -280,9 +280,10 @@ window.TOSKA = {
     // nome: troque pelo nome artístico de cada uma (por enquanto está o @)
     { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "", artes: [] },
     { nome: "mands.arts",  handle: "_mands.arts", oficio: "Tatuagem", whatsapp: "", artes: [] },
-    { nome: "zecatattoo",  handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "", artes: [] },
+    { nome: "Zeca",        handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "5519991727856", artes: [] },
     { nome: "pecadottt",   handle: "pecadottt",   oficio: "Tatuagem", whatsapp: "", artes: [] },
-    { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "", artes: [] }
+    { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "", artes: [] },
+    { nome: "Vida",        handle: "",            oficio: "Artista geral", whatsapp: "", artes: [] }
   ]
 };
 </script>
@@ -328,7 +329,7 @@ window.TOSKA = {
       </svg>
     </div>
     <div class="hero__base">
-      <p class="hero__texto">Um ateliê de arte em suas diversas formas de expressão. Cinco artistas da cena mais toska de Campinas num espaço acolhedor e seguro para todes.</p>
+      <p class="hero__texto">Um ateliê de arte em suas diversas formas de expressão. Seis artistas da cena mais toska de Campinas num espaço acolhedor e seguro para todes.</p>
       <div class="hero__cta">
         <button class="pilula pilula--onca" data-abre-gaveta type="button">
           <svg aria-hidden="true"><use href="#i-whats"/></svg> Agendar com uma artista
@@ -343,7 +344,7 @@ window.TOSKA = {
   <!-- MANIFESTO -->
   <section class="secao" id="sobre" aria-labelledby="titulo-sobre">
     <div class="rotulo"><span id="titulo-sobre">Conheça a Toska</span><span>Tatuagens e unhas legais</span></div>
-    <p class="manifesto__texto" data-palavras>Somos um coletivo de cinco artistas que acreditam na arte como algo <em>movimentador da vida</em>.</p>
+    <p class="manifesto__texto" data-palavras>Somos um coletivo de seis artistas que acreditam na arte como algo <em>movimentador da vida</em>.</p>
     <p class="manifesto__texto" data-palavras>Trabalhamos com arte nos diversos suportes, com foco em <em>tatuagens e nail art</em>.</p>
     <p class="manifesto__texto" data-palavras>Nosso espaço é a construção do desejo de ocupar um lugar de criatividade.</p>
     <div class="manifesto__pe">
@@ -462,10 +463,10 @@ window.TOSKA = {
   if (!temGSAP) document.documentElement.classList.add("sem-js");
 
   const igURL = h => `https://www.instagram.com/${h}/`;
-  const msg = a => `Olá, ${a.nome}! Vi o site da Toska Ateliê e quero agendar ${a.oficio === "Nail art" ? "um horário de unhas" : "uma tatuagem"}.`;
+  const msg = a => `Olá, ${a.nome}! Vi o site da Toska Ateliê e quero agendar ${a.oficio === "Nail art" ? "um horário de unhas" : a.oficio === "Tatuagem" ? "uma tatuagem" : "um horário"}.`;
   const contato = a => a.whatsapp
     ? { href: `https://wa.me/${a.whatsapp}?text=${encodeURIComponent(msg(a))}`, rotulo: "WhatsApp", icone: "i-whats" }
-    : { href: igURL(a.handle), rotulo: "Chamar no Instagram", icone: "i-ig" };
+    : { href: igURL(a.handle || C.instagram), rotulo: "Chamar no Instagram", icone: "i-ig" };
 
   /* ---------- artes de exemplo (somem quando houver artes reais) ---------- */
   const PALETAS = [
@@ -507,7 +508,7 @@ window.TOSKA = {
     cc.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(`${C.endereco}, ${C.cidade}`);
     cc.hidden = false;
   }
-  $("[data-conta-artistas]").textContent = `${C.artistas.length} artistas · ${C.artistas.filter(a=>a.oficio!=="Nail art").length} tatuadoras`;
+  $("[data-conta-artistas]").textContent = `${C.artistas.length} artistas · ${C.artistas.filter(a=>a.oficio==="Tatuagem").length} tatuadoras`;
 
   const giros = ["-1.6deg","1.2deg","-0.8deg","1.8deg","-1.2deg","0.6deg"];
   $("[data-artistas]").innerHTML = C.artistas.map((a, i) => {
@@ -520,10 +521,10 @@ window.TOSKA = {
       </div>
       <div class="cartao__info">
       <h3 class="cartao__nome">${a.nome}</h3>
-      <p class="cartao__handle">@${a.handle}</p>
+      <p class="cartao__handle">${a.handle ? "@" + a.handle : a.oficio}</p>
       <div class="cartao__botoes">
         <a class="pilula pilula--onca" href="${c.href}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#${c.icone}"/></svg>${c.rotulo === "WhatsApp" ? "Agendar" : "Chamar"}</a>
-        <a class="pilula" href="${igURL(a.handle)}" target="_blank" rel="noopener">Portfólio</a>
+        <a class="pilula" href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener">Portfólio</a>
       </div>
       </div>
     </article>`;
@@ -536,7 +537,7 @@ window.TOSKA = {
   $("[data-galeria]").innerHTML = pecas.map(({a,x}) => `
     <figure class="peca" style="margin-left:0;margin-right:0">
       <div class="peca__img"><img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : "Arte de " + a.nome}" loading="lazy"></div>
-      <figcaption class="peca__leg"><span>${a.nome}</span><a href="${igURL(a.handle)}" target="_blank" rel="noopener">@${a.handle}</a></figcaption>
+      <figcaption class="peca__leg"><span>${a.nome}</span><a href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener">@${a.handle || C.instagram}</a></figcaption>
     </figure>`).join("");
 
   $("[data-gaveta-lista]").innerHTML = C.artistas.map(a => {
