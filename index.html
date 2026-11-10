@@ -279,8 +279,8 @@ main,header,footer,section{position:relative;z-index:1}
 <!-- =========================================================
      CONFIGURAÇÃO DO SITE — edite só este bloco
      - whatsapp: só números com DDI e DDD, ex.: "5519999999999".
-       Se ficar vazio, o botão leva para o Instagram da artista.
-     - foto: foto(s) da artista para o cartão (ex.: ["artes/zeca-perfil.jpg"]).
+       Se ficar vazio, o botão leva para o Instagram de quem é.
+     - foto: foto(s) de cada artista para o cartão (ex.: ["artes/zeca-perfil.jpg"]).
      - artes: fotos de trabalho para a galeria (ex.: "artes/zeca-1.jpg").
        Se ficar vazio, aparecem artes de exemplo.
      ========================================================= -->
@@ -358,7 +358,7 @@ window.TOSKA = {
       <p class="hero__texto">Um ateliê de arte em suas diversas formas de expressão. Seis artistas da cena mais toska de Campinas num espaço acolhedor e seguro para todes.</p>
       <div class="hero__cta">
         <button class="pilula pilula--onca" data-abre-gaveta type="button">
-          <svg aria-hidden="true"><use href="#i-whats"/></svg> Agendar com uma artista
+          <svg aria-hidden="true"><use href="#i-whats"/></svg> Agendar seu horário
         </button>
         <a class="pilula" href="#artistas">Ver artistas</a>
       </div>
@@ -382,7 +382,7 @@ window.TOSKA = {
 
   <!-- ARTISTAS -->
   <section class="secao" id="artistas" aria-labelledby="titulo-artistas" style="padding-top:0">
-    <div class="rotulo"><span id="titulo-artistas">As artistas</span><span data-conta-artistas></span></div>
+    <div class="rotulo"><span id="titulo-artistas">Artistas</span><span data-conta-artistas></span></div>
     <div class="artistas__grade" data-artistas></div>
   </section>
 
@@ -402,7 +402,7 @@ window.TOSKA = {
   <section class="secao" id="agendar" aria-labelledby="titulo-agendar">
     <div class="rotulo"><span id="titulo-agendar">Como agendar</span><span>Só com hora marcada</span></div>
     <div class="passos">
-      <div class="passo"><h3>Escolha a artista</h3><p>Veja os trabalhos de cada uma e escolha quem tem o traço que combina com a sua ideia.</p></div>
+      <div class="passo"><h3>Escolha quem vai te atender</h3><p>Veja os trabalhos de cada artista e escolha o traço que combina com a sua ideia.</p></div>
       <div class="passo"><h3>Chame no WhatsApp</h3><p>Conte sua ideia, o tamanho e o lugar do corpo. Cada artista agenda direto com você.</p></div>
       <div class="passo"><h3>Venha pro ateliê</h3><p>No dia marcado, é só chegar. Visitas apenas com agendamento prévio.</p></div>
     </div>
@@ -435,7 +435,7 @@ window.TOSKA = {
   </div>
 </footer>
 
-<button class="flutua" data-abre-gaveta type="button" aria-label="Agendar com uma artista pelo WhatsApp">
+<button class="flutua" data-abre-gaveta type="button" aria-label="Agendar seu horário pelo WhatsApp">
   <svg aria-hidden="true"><use href="#i-whats"/></svg>
 </button>
 
@@ -536,7 +536,7 @@ window.TOSKA = {
     cc.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(`${C.endereco}, ${C.cidade}`);
     cc.hidden = false;
   }
-  $("[data-conta-artistas]").textContent = `${C.artistas.length} artistas · ${C.artistas.filter(a=>a.oficio==="Tatuagem").length} tatuadoras`;
+  $("[data-conta-artistas]").textContent = `${C.artistas.length} artistas · ${C.artistas.filter(a=>a.oficio==="Tatuagem").length} na tatuagem`;
 
   const giros = ["-1.6deg","1.2deg","-0.8deg","1.8deg","-1.2deg","0.6deg"];
   $("[data-artistas]").innerHTML = C.artistas.map((a, i) => {
@@ -731,7 +731,7 @@ window.TOSKA = {
   });
   gsap.from(".manifesto__pe > div", { y: 50, opacity: 0, stagger: .12, duration: .9, ease: "power3.out", scrollTrigger: { trigger: ".manifesto__pe", start: "top 85%" } });
 
-  // cartões das artistas entram como figurinhas e inclinam com o mouse
+  // cartões de artistas entram como figurinhas e inclinam com o mouse
   gsap.from(".cartao", { y: 120, rotate: (i) => (i % 2 ? 10 : -10), opacity: 0, duration: 1.1, ease: "expo.out", stagger: .1, scrollTrigger: { trigger: "[data-artistas]", start: "top 80%" } });
   $$(".cartao").forEach(c => {
     const rx = gsap.quickTo(c, "rotationX", { duration: .5, ease: "power3" });
