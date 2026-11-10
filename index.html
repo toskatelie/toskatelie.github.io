@@ -196,6 +196,19 @@ main,header,footer,section{position:relative;z-index:1}
 .galeria__trilho{display:flex;gap:clamp(18px,3vw,40px);padding:20px clamp(16px,4vw,40px) clamp(80px,10vw,120px);width:max-content;align-items:center}
 .peca{flex:0 0 auto;width:clamp(240px,28vw,400px);will-change:transform}
 .peca:nth-child(even){margin-top:80px}
+.so-celular{display:none}
+.galeria__pontos{display:none}
+@media (max-width:760px){
+  .so-desktop{display:none}
+  .so-celular{display:inline}
+  .galeria__janela{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x pan-y}
+  .galeria__janela::-webkit-scrollbar{display:none}
+  .galeria__trilho{gap:16px;padding:10px 7.5vw 30px}
+  .peca{width:85vw;scroll-snap-align:center;margin-top:0!important}
+  .galeria__pontos{display:flex;justify-content:center;gap:8px;padding:0 0 60px}
+  .galeria__pontos i{width:8px;height:8px;border-radius:50%;background:var(--creme);opacity:.3;transition:opacity .25s,width .25s}
+  .galeria__pontos i.ativo{opacity:1;width:22px;border-radius:99px;background:var(--onca)}
+}
 .peca__img{aspect-ratio:4/5;border-radius:18px;overflow:hidden;border:2.5px solid var(--creme);position:relative}
 .peca__img > *{width:100%;height:100%;object-fit:cover;display:block}
 .peca__leg{display:flex;justify-content:space-between;margin-top:10px;text-transform:uppercase;font-weight:600;letter-spacing:.05em;font-size:14px}
@@ -281,7 +294,9 @@ window.TOSKA = {
   onca: "",                // imagem da onça da Toska (PNG com fundo transparente), ex.: "artes/onca.png"
   artistas: [
     // nome: o @ do Instagram de cada artista (sem o @)
-    { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "", artes: [] },
+    { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "5519989889588",
+      foto: ["artes/emboscad4-perfil.jpg", "artes/emboscad4-perfil-2.jpg"],
+      artes: ["artes/emboscad4-1.jpg", "artes/emboscad4-2.jpg", "artes/emboscad4-3.jpg", "artes/emboscad4-4.jpg"] },
     { nome: "_mands.arts", handle: "_mands.arts", oficio: "Tatuagem", whatsapp: "556298331506",
       foto: ["artes/mands-perfil.jpg", "artes/mands-perfil-2.jpg"],
       artes: ["artes/mands-1.jpg", "artes/mands-2.jpg", "artes/mands-3.jpg", "artes/mands-4.jpg"] },
@@ -291,7 +306,9 @@ window.TOSKA = {
     { nome: "pecadottt",   handle: "pecadottt",   oficio: "Tatuagem", whatsapp: "5519996688934",
       foto: ["artes/pecadottt-perfil.jpg", "artes/pecadottt-perfil-2.jpg"],
       artes: ["artes/pecadottt-1.jpg", "artes/pecadottt-2.jpg", "artes/pecadottt-3.jpg"] },
-    { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "", artes: [] },
+    { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "",
+      foto: ["artes/azulnhas-perfil.jpg", "artes/azulnhas-perfil-2.jpg"],
+      artes: ["artes/azulnhas-1.jpg", "artes/azulnhas-2.jpg", "artes/azulnhas-3.jpg"] },
     { nome: "Vida",        handle: "",            oficio: "Artista geral", whatsapp: "", artes: [] }
   ]
 };
@@ -372,10 +389,11 @@ window.TOSKA = {
   <!-- GALERIA -->
   <section class="galeria" id="artes" aria-labelledby="titulo-galeria">
     <div class="galeria__topo">
-      <div class="rotulo"><span>Galeria</span><span>Arraste ou role</span></div>
+      <div class="rotulo"><span>Galeria</span><span><span class="so-desktop">Role para ver</span><span class="so-celular">Arraste para o lado →</span></span></div>
       <h2 class="galeria__titulo" id="titulo-galeria">Arte que <span>mexe</span></h2>
     </div>
-    <div class="galeria__janela"><div class="galeria__trilho" data-galeria></div></div>
+    <div class="galeria__janela" data-lenis-prevent><div class="galeria__trilho" data-galeria></div></div>
+    <div class="galeria__pontos" aria-hidden="true"></div>
   </section>
 
   <div class="faixa faixa--b" aria-hidden="true"><div class="faixa__trilho" data-faixa="-1"></div></div>
@@ -562,6 +580,17 @@ window.TOSKA = {
       </span></div>`;
   }).join("");
 
+  /* ---------- pontinhos do carrossel no celular ---------- */
+  const janela = $(".galeria__janela"), pontos = $(".galeria__pontos");
+  pontos.innerHTML = pecas.map(() => "<i></i>").join("");
+  const marcaPonto = () => {
+    const ps = $$(".peca"), centro = janela.scrollLeft + janela.clientWidth / 2;
+    let k = 0, melhor = Infinity;
+    ps.forEach((p, i) => { const d = Math.abs(p.offsetLeft + p.offsetWidth / 2 - centro); if (d < melhor) { melhor = d; k = i; } });
+    $$("i", pontos).forEach((el, i) => el.classList.toggle("ativo", i === k));
+  };
+  janela.addEventListener("scroll", marcaPonto, { passive: true }); marcaPonto();
+
   /* ---------- topo ganha fundo ao rolar ---------- */
   const topo = $(".topo");
   const marcaTopo = () => topo.classList.toggle("rolou", scrollY > 40);
@@ -715,15 +744,17 @@ window.TOSKA = {
     c.addEventListener("pointerleave", () => { rx(0); ry(0); });
   });
 
-  // galeria horizontal fixada
+  // galeria: no computador anda com a rolagem (fixada); no celular, carrossel de arrastar
   const trilho = $("[data-galeria]");
   const distancia = () => Math.max(0, trilho.scrollWidth - innerWidth);
-  gsap.to(trilho, {
-    x: () => -distancia(), ease: "none",
-    scrollTrigger: { trigger: ".galeria", start: "top top", end: () => "+=" + distancia(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
-  });
-  $$(".peca").forEach((p, i) => {
-    gsap.fromTo(p, { rotate: i % 2 ? 6 : -6 }, { rotate: i % 2 ? -4 : 4, ease: "none", scrollTrigger: { trigger: ".galeria", start: "top top", end: () => "+=" + distancia(), scrub: true } });
+  gsap.matchMedia().add("(min-width: 761px)", () => {
+    gsap.to(trilho, {
+      x: () => -distancia(), ease: "none",
+      scrollTrigger: { trigger: ".galeria", start: "top top", end: () => "+=" + distancia(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
+    });
+    $$(".peca").forEach((p, i) => {
+      gsap.fromTo(p, { rotate: i % 2 ? 6 : -6 }, { rotate: i % 2 ? -4 : 4, ease: "none", scrollTrigger: { trigger: ".galeria", start: "top top", end: () => "+=" + distancia(), scrub: true } });
+    });
   });
   gsap.from(".galeria__titulo", { yPercent: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".galeria", start: "top 75%" } });
 
