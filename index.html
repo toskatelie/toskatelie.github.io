@@ -241,7 +241,9 @@ main,header,footer,section{position:relative;z-index:1}
 .gaveta__painel > p{margin:0 0 18px;text-transform:uppercase;font-weight:500}
 .gaveta__lista{display:grid;gap:10px}
 .gaveta__item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:2px solid var(--tinta);border-radius:16px;padding:12px 14px;text-decoration:none;background:var(--creme);transition:background .2s}
-.gaveta__item:hover{background:var(--onca)}
+.gaveta__links{display:flex;gap:8px}
+.gaveta__links a{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--tinta);border-radius:50%;background:var(--creme);transition:background .2s}
+.gaveta__links a:hover{background:var(--onca)}
 .gaveta__item b{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:24px;display:block;line-height:1}
 .gaveta__item small{text-transform:uppercase;font-weight:600;color:var(--vinho)}
 .gaveta__item svg{width:26px;height:26px;flex:0 0 auto}
@@ -277,10 +279,10 @@ window.TOSKA = {
   endereco: "",            // endereço completo (opcional) — aparece no site e no botão "Como chegar"
   onca: "",                // imagem da onça da Toska (PNG com fundo transparente), ex.: "artes/onca.png"
   artistas: [
-    // nome: troque pelo nome artístico de cada uma (por enquanto está o @)
-    { nome: "Helena",      handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "5519996688934", artes: [] },
-    { nome: "mands.arts",  handle: "_mands.arts", oficio: "Tatuagem", whatsapp: "", artes: [] },
-    { nome: "Zeca",        handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "5519991727856", artes: [] },
+    // nome: o @ do Instagram de cada artista (sem o @)
+    { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "5519996688934", artes: [] },
+    { nome: "_mands.arts", handle: "_mands.arts", oficio: "Tatuagem", whatsapp: "556298331506",  artes: [] },
+    { nome: "zecatattoo_", handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "5519991727856", artes: [] },
     { nome: "pecadottt",   handle: "pecadottt",   oficio: "Tatuagem", whatsapp: "", artes: [] },
     { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "", artes: [] },
     { nome: "Vida",        handle: "",            oficio: "Artista geral", whatsapp: "", artes: [] }
@@ -417,7 +419,7 @@ window.TOSKA = {
   <div class="gaveta__painel">
     <button class="gaveta__fechar" data-fecha-gaveta type="button" aria-label="Fechar">×</button>
     <h2 id="titulo-gaveta">Com quem você quer agendar?</h2>
-    <p>Cada artista agenda direto com você.</p>
+    <p>Chame direto no WhatsApp ou no Instagram de cada artista.</p>
     <div class="gaveta__lista" data-gaveta-lista></div>
   </div>
 </div>
@@ -463,7 +465,8 @@ window.TOSKA = {
   if (!temGSAP) document.documentElement.classList.add("sem-js");
 
   const igURL = h => `https://www.instagram.com/${h}/`;
-  const msg = a => `Olá, ${a.nome}! Vi o site da Toska Ateliê e quero agendar ${a.oficio === "Nail art" ? "um horário de unhas" : a.oficio === "Tatuagem" ? "uma tatuagem" : "um horário"}.`;
+  const msg = a => `Olá! Vi o site da Toska Ateliê e quero agendar ${a.oficio === "Nail art" ? "um horário de unhas" : a.oficio === "Tatuagem" ? "uma tatuagem" : "um horário"}.`;
+  const zap = a => `https://wa.me/${a.whatsapp}?text=${encodeURIComponent(msg(a))}`;
   const contato = a => a.whatsapp
     ? { href: `https://wa.me/${a.whatsapp}?text=${encodeURIComponent(msg(a))}`, rotulo: "WhatsApp", icone: "i-whats" }
     : { href: igURL(a.handle || C.instagram), rotulo: "Chamar no Instagram", icone: "i-ig" };
@@ -521,10 +524,10 @@ window.TOSKA = {
       </div>
       <div class="cartao__info">
       <h3 class="cartao__nome">${a.nome}</h3>
-      <p class="cartao__handle">${a.handle ? "@" + a.handle : a.oficio}</p>
+      <p class="cartao__handle">${a.oficio}</p>
       <div class="cartao__botoes">
-        <a class="pilula pilula--onca" href="${c.href}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#${c.icone}"/></svg>${c.rotulo === "WhatsApp" ? "Agendar" : "Chamar"}</a>
-        <a class="pilula" href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener">Portfólio</a>
+        ${a.whatsapp ? `<a class="pilula pilula--onca" href="${zap(a)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>WhatsApp</a>` : ""}
+        <a class="pilula" href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg>Instagram</a>
       </div>
       </div>
     </article>`;
@@ -537,14 +540,17 @@ window.TOSKA = {
   $("[data-galeria]").innerHTML = pecas.map(({a,x}) => `
     <figure class="peca" style="margin-left:0;margin-right:0">
       <div class="peca__img"><img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : "Arte de " + a.nome}" loading="lazy"></div>
-      <figcaption class="peca__leg"><span>${a.nome}</span><a href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener">@${a.handle || C.instagram}</a></figcaption>
+      <figcaption class="peca__leg"><span>${a.oficio}</span><a href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener">@${a.handle || C.instagram}</a></figcaption>
     </figure>`).join("");
 
   $("[data-gaveta-lista]").innerHTML = C.artistas.map(a => {
     const c = contato(a);
-    return `<a class="gaveta__item" href="${c.href}" target="_blank" rel="noopener">
-      <span><b>${a.nome}</b><small>${a.oficio} · ${c.rotulo}</small></span>
-      <svg aria-hidden="true"><use href="#${c.icone}"/></svg></a>`;
+    return `<div class="gaveta__item">
+      <span><b>${a.nome}</b><small>${a.oficio}</small></span>
+      <span class="gaveta__links">
+        ${a.whatsapp ? `<a href="${zap(a)}" target="_blank" rel="noopener" aria-label="WhatsApp de ${a.nome}"><svg aria-hidden="true"><use href="#i-whats"/></svg></a>` : ""}
+        <a href="${igURL(a.handle || C.instagram)}" target="_blank" rel="noopener" aria-label="Instagram de ${a.nome}"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      </span></div>`;
   }).join("");
 
   /* ---------- topo ganha fundo ao rolar ---------- */
