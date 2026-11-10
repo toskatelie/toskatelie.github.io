@@ -267,7 +267,8 @@ main,header,footer,section{position:relative;z-index:1}
      CONFIGURAÇÃO DO SITE — edite só este bloco
      - whatsapp: só números com DDI e DDD, ex.: "5519999999999".
        Se ficar vazio, o botão leva para o Instagram da artista.
-     - artes: caminhos de imagens (ex.: "artes/zeca-1.jpg").
+     - foto: foto(s) da artista para o cartão (ex.: ["artes/zeca-perfil.jpg"]).
+     - artes: fotos de trabalho para a galeria (ex.: "artes/zeca-1.jpg").
        Se ficar vazio, aparecem artes de exemplo.
      ========================================================= -->
 <script>
@@ -280,9 +281,13 @@ window.TOSKA = {
   onca: "",                // imagem da onça da Toska (PNG com fundo transparente), ex.: "artes/onca.png"
   artistas: [
     // nome: o @ do Instagram de cada artista (sem o @)
-    { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "5519996688934", artes: [] },
+    { nome: "emboscad4",   handle: "emboscad4",   oficio: "Tatuagem", whatsapp: "5519996688934",
+      foto: ["artes/emboscad4-perfil.jpg", "artes/emboscad4-perfil-2.jpg"],
+      artes: ["artes/emboscad4-1.jpg", "artes/emboscad4-2.jpg", "artes/emboscad4-3.jpg"] },
     { nome: "_mands.arts", handle: "_mands.arts", oficio: "Tatuagem", whatsapp: "556298331506",  artes: [] },
-    { nome: "zecatattoo_", handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "5519991727856", artes: [] },
+    { nome: "zecatattoo_", handle: "zecatattoo_", oficio: "Tatuagem", whatsapp: "5519991727856",
+      foto: ["artes/zeca-perfil.jpg"],
+      artes: ["artes/zeca-1.jpg", "artes/zeca-2.jpg", "artes/zeca-3.jpg", "artes/zeca-4.jpg"] },
     { nome: "pecadottt",   handle: "pecadottt",   oficio: "Tatuagem", whatsapp: "", artes: [] },
     { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "", artes: [] },
     { nome: "Vida",        handle: "",            oficio: "Artista geral", whatsapp: "", artes: [] }
@@ -516,11 +521,11 @@ window.TOSKA = {
   const giros = ["-1.6deg","1.2deg","-0.8deg","1.8deg","-1.2deg","0.6deg"];
   $("[data-artistas]").innerHTML = C.artistas.map((a, i) => {
     const c = contato(a);
-    const artes = artesDe(a, i);
+    const artes = a.foto && a.foto.length ? a.foto.map(src => ({src, exemplo:false, perfil:true})) : artesDe(a, i);
     return `<article class="cartao" style="--gira:${giros[i % giros.length]}">
       <div class="cartao__arte" data-ciclo>
         <span class="cartao__tag">${a.oficio}</span>
-        ${artes.map((x,k)=>`<img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : "Arte de " + a.nome}" loading="lazy" class="${k===0?"ativa":""}">`).join("")}
+        ${artes.map((x,k)=>`<img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : x.perfil ? a.nome : "Arte de " + a.nome}" loading="lazy" class="${k===0?"ativa":""}">`).join("")}
       </div>
       <div class="cartao__info">
       <h3 class="cartao__nome">${a.nome}</h3>
@@ -534,7 +539,9 @@ window.TOSKA = {
   }).join("");
 
   // galeria: intercala uma arte de cada artista por vez
-  const listas = C.artistas.map((a,i) => artesDe(a,i).map(x => ({a, x})));
+  // só artes reais na galeria quando alguém já tiver mandado as suas
+  const temReais = C.artistas.some(a => a.artes && a.artes.length);
+  const listas = C.artistas.map((a,i) => artesDe(a,i).filter(x => !temReais || !x.exemplo).map(x => ({a, x})));
   const pecas = [];
   for (let k = 0; k < Math.max(...listas.map(l => l.length)); k++) listas.forEach(l => l[k] && pecas.push(l[k]));
   $("[data-galeria]").innerHTML = pecas.map(({a,x}) => `
