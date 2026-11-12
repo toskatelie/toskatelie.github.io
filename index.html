@@ -182,7 +182,7 @@ main,header,footer,section{position:relative;z-index:1}
 .cartao__arte > .ativa{opacity:1}
 .cartao__tag{position:absolute;top:12px;left:12px;z-index:2;background:var(--creme);border:2px solid var(--tinta);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
 .cartao__info{background:var(--creme);border:2.5px solid var(--tinta);border-radius:16px;padding:12px 14px 14px;margin-top:14px}
-.cartao__nome{font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,3.4vw,46px);line-height:.95;margin:0 0 4px;color:var(--musgo)}
+.cartao__nome{font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,3.4vw,46px);line-height:.95;margin:0 0 4px;color:var(--musgo);overflow-wrap:anywhere}
 .cartao__handle{margin:0 0 14px;color:var(--vinho);font-weight:700}
 .cartao__botoes{display:flex;gap:8px;flex-wrap:wrap}
 .cartao__botoes .pilula{flex:1;justify-content:center;padding:12px 14px}
@@ -309,7 +309,9 @@ window.TOSKA = {
     { nome: "azulnhas",    handle: "azulnhas",    oficio: "Nail art", whatsapp: "",
       foto: ["artes/azulnhas-perfil.jpg", "artes/azulnhas-perfil-2.jpg"],
       artes: ["artes/azulnhas-1.jpg", "artes/azulnhas-2.jpg", "artes/azulnhas-3.jpg"] },
-    { nome: "Vida",        handle: "",            oficio: "Artista geral", whatsapp: "", artes: [] }
+    { nome: "vida.pessoajuridica", handle: "vida.pessoajuridica", oficio: "Artista geral", whatsapp: "5519991907227",
+      foto: ["artes/vida-perfil.jpg", "artes/vida-perfil-2.jpg"],
+      artes: ["artes/vida-1.jpg", "artes/vida-2.jpg"] }
   ]
 };
 </script>
@@ -548,7 +550,7 @@ window.TOSKA = {
         ${artes.map((x,k)=>`<img src="${x.src}" alt="${x.exemplo ? "Arte de exemplo" : x.perfil ? a.nome : "Arte de " + a.nome}" loading="lazy" class="${k===0?"ativa":""}">`).join("")}
       </div>
       <div class="cartao__info">
-      <h3 class="cartao__nome">${a.nome}</h3>
+      <h3 class="cartao__nome">${a.nome.replace(/([._])(?=.{6,})/g, "$1<wbr>")}</h3>
       <p class="cartao__handle">${a.oficio}</p>
       <div class="cartao__botoes">
         ${a.whatsapp ? `<a class="pilula pilula--onca" href="${zap(a)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>WhatsApp</a>` : ""}
